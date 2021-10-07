@@ -13,7 +13,8 @@ public class Student {
 	@Override
 	public String toString()
 	{
-		
+		return profile.getName() + ":" + profile.getMajor() + ":" + profile.getCreditHours() + " credit hours:tuition due:" +
+		this.getProfile().getTuition() + ":last payment:" + profile.getLastPayment() + ":payment date:" + profile.getLastPaymentDate() + ":";
 	}
 	
 	public void setProfile(Profile profile)
