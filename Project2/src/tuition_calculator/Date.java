@@ -20,7 +20,7 @@ public class Date implements Comparable<Date> {
 	public static final int OCTOBER = 10;
 	public static final int NOVEMBER = 11;
 	public static final int DECEMBER = 12;
-	public static final int THE_EIGHTIES = 1980;
+	public static final int INVALID_YEAR = 2021;
 	
 	private int year;
 	private int month;
@@ -60,7 +60,7 @@ public class Date implements Comparable<Date> {
 	 @return true 		if the date is valid, else false
 	*/
 	public boolean isValid() {
-		if (this.year < THE_EIGHTIES || (this.compareTo(new Date()) == 1))
+		if (this.year < INVALID_YEAR || (this.compareTo(new Date()) == 1))
 			return false;
 		if (this.month > DECEMBER || this.month < JANUARY)
 			return false;

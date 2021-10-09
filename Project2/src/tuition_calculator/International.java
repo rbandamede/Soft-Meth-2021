@@ -5,6 +5,10 @@ package tuition_calculator;
  @author Aileen Wu, Rishika Bandamede
 */
 public class International extends NonResident{
+	private static final int internationalFullTuition = 29737;
+	private static final int additionalFee = 2650;
+
+	
 	@Override
 	public String toString()
 	{
@@ -14,8 +18,11 @@ public class International extends NonResident{
 	@Override
 	public void tuitionDue()
 	{
-		this.getProfile().setTuition(29737 + 3268 + 2650);
-		if (this.getProfile().isStudyingAbroad() == true)
-			this.getProfile().setTuition(this.getProfile().getTuition() - 29737);
+		
+//		if (this.getProfile().isStudyingAbroad() == true)
+//			this.getProfile().setTuition(this.getProfile().getTuition() - 29737);
+		if(profile.getIsStudyingAbroad() == true)
+			this.getProfile().setTuition(universityFee + additionalFee);
+		else this.getProfile().setTuition(internationalFullTuition + universityFee + additionalFee);
 	}
 }

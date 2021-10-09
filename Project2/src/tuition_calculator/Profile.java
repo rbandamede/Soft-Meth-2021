@@ -14,6 +14,17 @@ public class Profile {
 	private boolean isFullTime;
 	private boolean isStudyingAbroad;
 	
+	public Profile(String name, Major major, int tuition, int credits, int lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad) {
+		this.name = name;
+		this.major = major;
+		this.tuition = tuition;
+		this.credits = credits;
+		this.lastPayment = lastPayment;
+		this.lastPaymentDate = lastPaymentDue;
+		this.isFullTime = isFullTime;
+		this.isStudyingAbroad = isStudyingAbroad;
+	}
+	
 	public String getName()
 	{
 		return name;
@@ -44,9 +55,20 @@ public class Profile {
 		return lastPayment;
 	}
 	
+	public void setLastPayment(String payment)
+	{
+		this.lastPayment = Integer.parseInt(payment);
+	}
+	
 	public Date getLastPaymentDate()
 	{
 		return lastPaymentDate;
+	}
+	
+	public void setLastPaymentDate(String date)
+	{
+		Date setDate = new Date(date);
+		this.lastPaymentDate = setDate;
 	}
 	
 	public boolean isFullTime()
