@@ -2,27 +2,46 @@ package tuition_calculator;
 
 import project.Album;
 
+/**
+ * Contains Student objects that serve as records in a roster.
+ * Contains methods that resize the roster, add, and delete students from the roster.
+ @author Aileen Wu, Rishika Bandamede
+*/
 public class Roster {
 	private Student[] roster;
 	private int size; //keep track of the number of students in the roster
 	//...
 	
+	/**
+	 * Empty constructor for Roster class.
+	*/
 	public Roster()
 	{
 		roster = new Student[4];
 		size = 0;
 	}
 	
+	/**
+	 * Returns roster variable.
+	 * @return roster		collection of students
+	*/
 	public Student[] getRoster()
 	{
 		return roster;
 	}
 	
+	/**
+	 * Returns size variable.
+	 * @return size		number of students in roster
+	*/
 	public int getSize()
 	{
 		return size;
 	}
 	
+	/**
+	 * Increases the size of roster by 4.
+	*/
 	private void grow() {
 		Student[] tempRoster = new Student[roster.length + 4];
 		for(int i = 0; i < roster.length; i++) {
@@ -31,6 +50,10 @@ public class Roster {
 		roster = tempRoster;
 	}
 	
+	/**
+	 * Adds a student to the roster.
+	 * @return true		if the student was successfully added, else false
+	*/
 	public boolean add(Student student) {
 		if (size >= roster.length)
 		{
@@ -41,6 +64,10 @@ public class Roster {
 		return true;
 	}
 	
+	/**
+	 * Deletes a student to the roster.
+	 * @return true		if the student was successfully deleted, else false
+	*/
 	public boolean remove(Student student) {
 		for (int i = 0; i < roster.length; i++)
 		{
@@ -53,6 +80,10 @@ public class Roster {
 		return false; //student doesn't exist in roster
 	}
 
+	/**
+	 * Converts a string into a Student object that already exists in the roster.
+	 * @return roster[i]		else null if the student doesn't exist in the roster
+	*/
 	public Student convertStringToStudent(String string)
 	{
 		for (int i = 0; i < roster.length; i++)
@@ -65,6 +96,10 @@ public class Roster {
 		return null; //student doesn't exist in roster
 	}
 	
+	/**
+	 * Checks if the roster is empty.
+	 * @return true		if the roster is empty, else false
+	*/
 	private boolean ifRosterEmpty()
 	{
 		if (size == 0)
@@ -75,6 +110,9 @@ public class Roster {
 		return false;
 	}
 	
+	/**
+	 * Prints all the students in the roster in any order.
+	*/
 	public void print()
 	{
 		if (ifRosterEmpty() == true)
@@ -87,6 +125,9 @@ public class Roster {
 		System.out.println("* end of roster **");
 	}
 	
+	/**
+	 * Prints all the students in the roster ordered by name.
+	*/
 	public void printByNames()
 	{
 		if (ifRosterEmpty() == true)
@@ -109,6 +150,9 @@ public class Roster {
 		System.out.println("* end of roster **");
 	}
 	
+	/**
+	 * Only prints the students in the roster who made payments, ordered by payment date.
+	*/
 	public void printByPayments()
 	{
 		if (ifRosterEmpty() == true)

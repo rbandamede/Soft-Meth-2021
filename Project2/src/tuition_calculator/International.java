@@ -1,7 +1,8 @@
 package tuition_calculator;
 
 /**
- * 
+ * Is an instance of Student and NonResident.
+ * Represents an international student.
  @author Aileen Wu, Rishika Bandamede
 */
 public class International extends NonResident{
@@ -9,12 +10,19 @@ public class International extends NonResident{
 	private static final int additionalFee = 2650;
 
 	
+	/**
+	 * Returns the International object into a string.
+	 @return !!!FILL THIS OUT!!!
+	*/
 	@Override
 	public String toString()
 	{
 		
 	}
 	
+	/**
+	 * Prints the tuition of an international student.
+	*/
 	@Override
 	public void tuitionDue()
 	{

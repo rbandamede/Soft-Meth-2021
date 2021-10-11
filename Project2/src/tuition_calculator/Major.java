@@ -9,6 +9,10 @@ package tuition_calculator;
  * }
  */
 
+/**
+ * Contains the possible majors for students in the roster.
+ @author Aileen Wu, Rishika Bandamede
+*/
 enum Major{
 	CS, IT, BA, EE, ME;
 }

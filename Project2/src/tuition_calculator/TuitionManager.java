@@ -2,7 +2,8 @@ package tuition_calculator;
 import java.util.Scanner;
 
 /**
- * 
+ * TuitionManager serves as the user's interface.
+ * It handles the user's input and outputs data to the user.
  @author Aileen Wu, Rishika Bandamede
 */
 public class TuitionManager {
@@ -14,6 +15,9 @@ public class TuitionManager {
 	private final int fullCreditHours = 12;
 	private final int maxCreditHoursAbroad = 12;
 	
+	/**
+	 * Runs the program and sets up the console where the user can input actions on the Roster.
+	*/
 	public void run()
 	{
 		Scanner scanner = new Scanner(System.in);
@@ -32,7 +36,12 @@ public class TuitionManager {
 			}
 		}
 	}
-	
+	/**
+	 * Runs the program and sets up the console where the user can input actions on the Roster.
+	 * @param userInput		a line of the user's input into the scanner
+	 * @param roster		a list of students and their records
+	 * @return true if userInput is valid, else false
+	*/
 	private boolean checkIfValid(String[] userInput, Roster roster)
 	{
 
@@ -111,6 +120,10 @@ public class TuitionManager {
 //		return false;
 	}
 	
+	/**
+	 * Checks the first 3 indexes of the tokenized user input to check if the inputs are valid.
+	   @param userInput, roster		array of strings userInput that reprsents a line of user input, roster represents students in a roster
+	*/
 //	private boolean checkFirst3Indexes(String[] userInput, Roster roster)
 //	{
 //		if (userInput[0] == null || userInput[1] == null) {
@@ -144,6 +157,13 @@ public class TuitionManager {
 		}else return false;
 	}
 	
+	/**
+	 * Checks if a student's credit hours input is valid.
+	   @param creditInput		a string representation of a student's credit hours
+	   @param isInternational	true if a student is international
+	   @param studyAbroad		true if a student is studying abroad
+	   @return true if the student's credit hours are valid, else false
+	*/
 	private boolean checkCreditHours(String creditInput, boolean isInternational, boolean studyAbroad) {
 		try {
 	        int creditHours = Integer.parseInteger(creditInput);
@@ -168,6 +188,11 @@ public class TuitionManager {
 		
 	}
 	
+	/**
+	 * Converts a student's major from a string to a Major object.
+	   @param major		a student's major in string form
+	   @return Major	a student's major as a Major object
+	*/
 	private Major getMajor(String major) {
 		if(major.equalsIgnoreCase("cs")) return Major.CS;
 		else if(major.equalsIgnoreCase("it")) return Major.IT;
@@ -177,6 +202,12 @@ public class TuitionManager {
 		else return null;
 	}
 	
+	/**
+	 * Checks if the user input for AR or AN command is valid.
+	   @param userInput		a line of the user's input into the scanner
+	   @param roster		collection of students and their records
+	   @return boolean		if the user input is valid, else false
+	*/
 	private boolean checkValidAROrAN(String[] userInput, Roster roster) {
 		if(userInput.length != residentAndNonResidentParams) {
 			System.out.println("Missing data in command line");
@@ -206,7 +237,12 @@ public class TuitionManager {
 		}
 	}
 	
-	
+	/**
+	 * Checks if the user input for AT or AI command is valid.
+	   @param userInput		a line of the user's input into the scanner
+	   @param roster		collection of students and their records
+	   @return boolean		if the user input is valid, else false
+	*/
 	private boolean checkValidATOrAI(String[] userInput, Roster roster) {
 		if(userInput.length != tristateAndInternationalParams) {
 			System.out.println("Missing data in command line");
@@ -249,7 +285,13 @@ public class TuitionManager {
 	
 	
 	
-	
+	/**
+	 * Returns true if the input setting a student's financial aid amount is valid, else false.
+	 * Prints an error if it the amount is invalid.
+	 @param userInput	a line of the user's input into the scanner
+	 @param student 	the student to change the financial aid of
+	 @return true		if the user input is valid, else false
+	*/
 	private boolean checkValidF(String[] userInput, Student student)
 	{
 		if (userInput[3] == null)
@@ -267,6 +309,13 @@ public class TuitionManager {
 		return true;
 	}
 	
+	/**
+	 * Returns true if the input setting a student's study abroad is valid, else false.
+	 * Prints an error if it the amount is invalid.
+	 @param userInput	a line of the user's input into the scanner
+	 @param roster 		collection of students and their records
+	 @return true		if the user input is valid, else false
+	*/
 	private boolean checkValidS(String[] userInput, Roster roster)
 	{
 		if (roster.convertStringToStudent(userInput[1]).isInternationalStudent)
@@ -279,22 +328,37 @@ public class TuitionManager {
 	
 
 	
-	
+	/**
+	 * Prints the students in the roster in any order.
+	 @param roster 		collection of students and their records
+	*/
 	private void p(Roster roster)
 	{
 		roster.print();
 	}
 	
+	/**
+	 * Prints the students in the roster sorted by names.
+	 @param roster 		collection of students and their records
+	*/
 	private void pn(Roster roster)
 	{
 		roster.printByNames();
 	}
 	
+	/**
+	 * Only print the students in the roster who made payments, ordered by payment date.
+	 @param roster 		collection of students and their records
+	*/
 	private void pt(Roster roster)
 	{
 		roster.printByPayments();
 	}
 	
+	/**
+	 * Checks if a string matches up with an enum Major.
+	 @param string 		compared with enum Majors
+	*/
 	public static boolean contains(String string)
 	{
 	    for (Major m : Major.values())

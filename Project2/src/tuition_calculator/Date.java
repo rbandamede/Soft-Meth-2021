@@ -3,7 +3,7 @@ import java.util.StringTokenizer;
 import java.util.Calendar;
 
 /**
- * The Date class represents the release date of an album through its year, month, and day.
+ * The Date class represents a student's payment date for their tuition in year, month, and day form.
  * It is necessary to check whether or not the date is valid before storing it in the variable.
  @author Aileen Wu, Rishika Bandamede
 */

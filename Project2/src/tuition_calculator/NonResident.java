@@ -1,7 +1,8 @@
 package tuition_calculator;
 
 /**
- * 
+ * Is an instance of Student.
+ * Represents a nonresident student.
  @author Aileen Wu, Rishika Bandamede
 */
 public class NonResident extends Student {
@@ -18,12 +19,19 @@ public class NonResident extends Student {
 		this.state = state;
 	}
 	
+	/**
+	 * Returns the NonResident object into a string.
+	 @return super.toString() + "non-resident"
+	*/
 	@Override
 	public String toString()
 	{
 		return super.toString() + "non-resident";
 	}
 	
+	/**
+	 * Prints the tuition of a non resident student.
+	*/
 	@Override
 	public void tuitionDue()
 	{
