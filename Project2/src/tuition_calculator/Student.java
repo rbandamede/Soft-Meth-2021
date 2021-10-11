@@ -11,8 +11,9 @@ public class Student {
 	protected static final int universityFee = 3268;
 		
 	
-	public Student(String name, Major major, int tuition, int credits, int lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad) {
+	public Student(String name, Major major, double tuition, int credits, int lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad) {
 		this.profile = new Profile(name, major, tuition, credits, lastPayment, lastPaymentDue, isFullTime, isStudyingAbroad);
+		//this.tuition = ;
 	}
 	
 	/**

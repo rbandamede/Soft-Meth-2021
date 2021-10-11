@@ -79,16 +79,31 @@ public class Roster {
 		}
 		return false; //student doesn't exist in roster
 	}
-
+	
+	/**
+	 * Deletes a student to the roster.
+	 * @return true		if the student was successfully deleted, else false
+	*/
+	public boolean calculateTuition() {
+		for (int i = 0; i < roster.length; i++)
+		{
+			roster[i].tuitionDue();
+			
+		}
+		return true; //student doesn't exist in roster
+	}
+	
+	
+	
 	/**
 	 * Converts a string into a Student object that already exists in the roster.
 	 * @return roster[i]		else null if the student doesn't exist in the roster
 	*/
-	public Student convertStringToStudent(String string)
+	public Student convertStringToStudent(String name, Major major)
 	{
 		for (int i = 0; i < roster.length; i++)
 		{
-			if (roster[i].getProfile().getName().equals(string))
+			if (roster[i].getProfile().getName().equals(name) && roster[i].getProfile().getMajor().equals(major))
 			{
 				return roster[i];
 			}

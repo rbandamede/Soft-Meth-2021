@@ -9,6 +9,11 @@ public class International extends NonResident{
 	private static final int internationalFullTuition = 29737;
 	private static final int additionalFee = 2650;
 
+	public International(String name, Major major, double tuition, int credits, int lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad, String state) {
+		super(name, major, tuition, credits, lastPayment, lastPaymentDue, isFullTime, isStudyingAbroad, null);
+		tuitionDue();
+
+	}
 	
 	/**
 	 * Returns the International object into a string.

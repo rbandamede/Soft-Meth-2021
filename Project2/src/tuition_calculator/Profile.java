@@ -8,7 +8,7 @@ package tuition_calculator;
 public class Profile {
 	private String name;
 	private Major major; //5 majors and 2-charater each: CS, IT, BA, EE, ME
-	private int tuition;
+	private double tuition;
 	private int credits;
 	private int lastPayment;
 	private Date lastPaymentDate;
@@ -26,7 +26,7 @@ public class Profile {
 	 * @param isFullTime		student's full time status
 	 * @param isStudyingAbroad	student's study abroad status
 	*/
-	public Profile(String name, Major major, int tuition, int credits, int lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad) {
+	public Profile(String name, Major major, double tuition, int credits, int lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad) {
 		this.name = name;
 		this.major = major;
 		this.tuition = tuition;
@@ -59,7 +59,7 @@ public class Profile {
 	 * Gets the tuition of a student.
 	 * @return tuition		student's tuition
 	*/
-	public int getTuition()
+	public double getTuition()
 	{
 		return tuition;
 	}
@@ -68,7 +68,7 @@ public class Profile {
 	 * Sets the tuition of a student to the specified input.
 	 * @param tuition		tuition to set to
 	*/
-	public void setTuition(int tuition)
+	public void setTuition(double tuition)
 	{
 		this.tuition = tuition;
 	}
@@ -80,6 +80,15 @@ public class Profile {
 	public int getCreditHours()
 	{
 		return credits;
+	}
+	
+	/**
+	 * Sets the credit hours of a student.
+	 *
+	*/
+	public void setCreditHours(int hours)
+	{
+		this.credits = hours;
 	}
 	
 	/**

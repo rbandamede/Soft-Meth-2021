@@ -8,6 +8,11 @@ package tuition_calculator;
 public class Resident extends Student {
 	private static final int residentFullTuition = 12536;
 	private static final int residentPartTuition = 404;
+	
+	public Resident(String name, Major major, double tuition, int credits, int lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad) {
+		super(name, major, tuition, credits, lastPayment, lastPaymentDue, isFullTime, isStudyingAbroad);
+		tuitionDue();
+	}
 
 	
 	/**

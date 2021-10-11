@@ -33,6 +33,11 @@ public class Date implements Comparable<Date> {
 	*/
 	public Date(String date) {
 		StringTokenizer st = new StringTokenizer(date,"/");
+		if(st.nextToken().equals("--")) {
+			this.month = -1;
+			this.day = -1;
+			this.year = -1;
+		}
 		
 		this.month = Integer.parseInt(st.nextToken());
 		this.day = Integer.parseInt(st.nextToken());
@@ -192,6 +197,7 @@ public class Date implements Comparable<Date> {
 	*/
 	public String toString()
 	{
+		if(this.month == -1 && this.day == -1 && this.year == -1) return "--/--/--";
 		return this.month + "/" + this.day + "/" + this.year;
 	}
 	

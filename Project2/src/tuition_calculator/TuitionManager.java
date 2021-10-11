@@ -24,7 +24,7 @@ public class TuitionManager {
 		System.out.println("Tuition Manager starts running.");
 		
 		Roster roster = new Roster();
-		Student newStudent = new Student();
+//		Student newStudent = new Student();
 		while (scanner.hasNextLine())
 		{
 			String[] userInput = scanner.nextLine().split(",");
@@ -34,7 +34,9 @@ public class TuitionManager {
 				System.out.println("Tuition Manager terminated.");
 				return;
 			}
+			checkIfValid(userInput, roster);
 		}
+		scanner.close();
 	}
 	/**
 	 * Runs the program and sets up the console where the user can input actions on the Roster.
@@ -46,53 +48,58 @@ public class TuitionManager {
 	{
 
 		
-		if (userInput[0].equals("T"))
-		{
-			if (roster.convertStringToStudent(userInput[1]).getProfile().getTuition() < Integer.parseInt(userInput[3]))
+		if (userInput[0].equals("T")){
+			if (roster.convertStringToStudent(userInput[1], getMajor(userInput[2])).getProfile().getTuition() < Integer.parseInt(userInput[3]))
 			{
 				System.out.println("Amount is greater than amount due.");
 				return false;
 			}
 			else
 			{
-				roster.convertStringToStudent(userInput[1]).getProfile().setTuition(roster.convertStringToStudent(userInput[1]).getProfile().getTuition() - Integer.parseInt(userInput[3]));
-				roster.convertStringToStudent(userInput[1]).getProfile().setLastPaymentDate(userInput[4]);
-				roster.convertStringToStudent(userInput[1]).getProfile().setLastPayment(userInput[3]);
+				Student student = roster.convertStringToStudent(userInput[1], getMajor(userInput[2]));
+				student.getProfile().setTuition(roster.convertStringToStudent(userInput[1], getMajor(userInput[2])).getProfile().getTuition() - Integer.parseInt(userInput[3]));
+				student.getProfile().setLastPaymentDate(userInput[4]);
+				student.getProfile().setLastPayment(userInput[3]);
 			}
-		}
-		
-		if (userInput[0].equals("AT") || userInput[0].equals("AI") ) {
+		}else if (userInput[0].equals("AT") || userInput[0].equals("AI") ) {
 			return checkValidATOrAI(userInput, roster);
-		}
-		
-		if (userInput[0].equals("AR") || userInput[0].equals("AN") ) {
+		}else if (userInput[0].equals("AR") || userInput[0].equals("AN") ) {
 			return checkValidAROrAN(userInput, roster);
-		}
-		
-		if (userInput[0].equals("F"))
+		}else if (userInput[0].equals("F"))
 		{
+			Student stud = roster.convertStringToStudent(userInput[1], getMajor(userInput[2]));
+			if(stud != null) return checkValidF(userInput, stud);
+			else return false;
+		}else if (userInput[0].equals("S")) {
+			return checkValidS(userInput, roster);
 			
-			
-		}
-
-		
-		if (userInput[0].equals("S"))
-			
-		if (userInput[0].equals("R")) {
+		}else if (userInput[0].equals("R")) {
 			if(userInput.length != 3) {
 				System.out.println();
 				return false;
-			}else if(!studentExists(roster, userInput[1])) {
+			}else if(!studentExists(roster, userInput[1], getMajor(userInput[2]))) {
 				System.out.println("Student not in the roster");
 				return false;
 			} 
 			
-			Student student = new Student(userInput[1], userInput[2], 0, 0, 0, null, false, false);)
+			Student student = new Student(userInput[1], getMajor(userInput[2]), 0, 0, 0, null, false, false);
 			roster.remove(student);
 			return true;
 			
+		}else if(userInput[0].equals("C")) {
+			roster.calculateTuition();
+			System.out.println("Calculation completed.");
+		}else if(userInput[0].equals("P")){
+			p(roster);
+		}else if(userInput[0].equals("PN")){
+			pn(roster);
+		}else if(userInput[0].equals("PT")){
+			pt(roster);
+		}else {
+			System.out.println("Command '" + userInput[0] + "' not supported!");
 		}
 		
+	}
 			
 		
 
@@ -118,7 +125,7 @@ public class TuitionManager {
 //		}
 //		
 //		return false;
-	}
+
 	
 	/**
 	 * Checks the first 3 indexes of the tokenized user input to check if the inputs are valid.
@@ -150,8 +157,8 @@ public class TuitionManager {
 //		return true;
 //	}
 	
-	private boolean studentExists(Roster roster, String name) {
-		if (roster.convertStringToStudent(name) != null) {
+	private boolean studentExists(Roster roster, String name, Major major) {
+		if (roster.convertStringToStudent(name, major) != null) {
 			//System.out.println("Student is already in the roster.");
 			return true;
 		}else return false;
@@ -166,25 +173,26 @@ public class TuitionManager {
 	*/
 	private boolean checkCreditHours(String creditInput, boolean isInternational, boolean studyAbroad) {
 		try {
-	        int creditHours = Integer.parseInteger(creditInput);
+	        int creditHours = Integer.parseInt(creditInput);
+	        if(creditHours < minCreditHours) {
+				System.out.println("Minimum credit hours is " + minCreditHours);
+				return false;
+			}else if(creditHours > maxCreditHours) {
+				System.out.println("Credit hours exceed the maximum " + maxCreditHours);
+				return false;
+				//CHECK THIS !!!!
+			}else if(isInternational && ( (studyAbroad && creditHours > maxCreditHoursAbroad) || creditHours < fullCreditHours)){
+				System.out.println("Invalid credit hours");
+				return false;
+			} 
+			else return true;
 	    } catch (NumberFormatException nfe) {
 	    	System.out.println("Invalid credit hours.");
 	    	return false;
 	    }
 		
 		
-		if(creditHours < minCreditHours) {
-			System.out.println("Minimum credit hours is " + minCreditHours);
-			return false;
-		}else if(creditHours > maxCreditHours) {
-			System.out.println("Credit hours exceed the maximum " + maxCreditHours);
-			return false;
-			//CHECK THIS !!!!
-		}else if(isInternational && ( (studyAbroad && creditHours > maxCreditHoursAbroad) || creditHours < fullCreditHours ){
-			System.out.println("Invalid credit hours");
-			return false;
-		} 
-		else return true;
+		
 		
 	}
 	
@@ -213,7 +221,7 @@ public class TuitionManager {
 			System.out.println("Missing data in command line");
 			return false;
 		}else {
-			if(studentExists(roster, userInput[1])) {
+			if(studentExists(roster, userInput[1], getMajor( userInput[2]))) {
 				System.out.println("Student is already in the roster");
 				return false;
 			}else if (getMajor(userInput[2]) == null) {
@@ -224,15 +232,16 @@ public class TuitionManager {
 			}
 			
 			if(userInput[0].equals("AR")) {
-				Resident newRes = new Resident(userInput[1], userInput[2], userInput[3], 0, null, (userInput[3] == fullCreditHours), false);
+				Resident newRes = new Resident(userInput[1], getMajor(userInput[2]),0.0, Integer.parseInt(userInput[3]),0, null, (Integer.parseInt(userInput[3]) == fullCreditHours), false);
 				roster.add(newRes);
 				return true;
 			}else if(userInput[0].equals("AN")) {
-				Nonresident newNonRes = new Nonresident(userInput[1], userInput[2], userInput[3], 0, null, (userInput[3] == fullCreditHours), false);
+				NonResident newNonRes = new NonResident(userInput[1], getMajor(userInput[2]), 0.0, Integer.parseInt(userInput[3]), 0.0, null, (Integer.parseInt(userInput[3]) == fullCreditHours), false, "");
 				roster.add(newNonRes);
 				return true;
 			}
 			
+			return false;
 			
 		}
 	}
@@ -248,7 +257,7 @@ public class TuitionManager {
 			System.out.println("Missing data in command line");
 			return false;
 		}else {
-			if(studentExists(roster, userInput[1])) {
+			if(studentExists(roster, userInput[1], getMajor( userInput[2]))) {
 				System.out.println("Student is already in the roster");
 				return false;
 			}else if (getMajor(userInput[2]) == null) {
@@ -258,21 +267,21 @@ public class TuitionManager {
 				if(!checkCreditHours(userInput[3], false, false)) {
 					return false;
 				}else {
-					Tristate student = new Tristate(userInput[1], userInput[2], userInput[3], 0, null, (userInput[3] == fullCreditHours), false, userInput[4]);
+					TriState student = new TriState(userInput[1],getMajor(userInput[2]), 0, Integer.parseInt(userInput[3]), 0, null, (Integer.parseInt(userInput[3]) == fullCreditHours), false, userInput[4]);
 					roster.add(student);
 					return true;
 				}
 				
 			}else if(userInput[0].equals("AI")) {
-				if(userInput[4] && checkCreditHours(userInput[3], true, true)) {
+				if(Boolean.parseBoolean(userInput[4]) && checkCreditHours(userInput[3], true, true)) {
 					//FIX THIS
 					//International study abroads
-					International student = new International(userInput[1], userInput[2], userInput[3], 0, null, (userInput[3] == fullCreditHours), false, userInput[4]);
+					International student = new International(userInput[1], getMajor(userInput[2]), 0, Integer.parseInt(userInput[3]), 0, null, (Integer.parseInt(userInput[3]) == fullCreditHours), Boolean.parseBoolean(userInput[4]), "");
 					roster.add(student);
 					return true;
 				}else if(checkCreditHours(userInput[3], true, false)) {
 					//doesn't study abroad
-					International student = new International(userInput[1], userInput[2], userInput[3], 0, null, (userInput[3] == fullCreditHours), false, userInput[4]);
+					International student = new International(userInput[1], getMajor(userInput[2]), 0, Integer.parseInt(userInput[3]), 0, null, (Integer.parseInt(userInput[3]) == fullCreditHours), Boolean.parseBoolean(userInput[4]), null);
 					roster.add(student);
 					return true;
 				}
@@ -280,6 +289,7 @@ public class TuitionManager {
 				return false;
 			}
 		}
+		return false;
 	}
 	
 	
@@ -318,12 +328,18 @@ public class TuitionManager {
 	*/
 	private boolean checkValidS(String[] userInput, Roster roster)
 	{
-		if (roster.convertStringToStudent(userInput[1]).isInternationalStudent)
+		//FIGURE THIS SHIT OUT
+		if (roster.convertStringToStudent(userInput[1], getMajor(userInput[2])).isInternationalStudent)
 		{
-			roster.convertStringToStudent(userInput[1]).getProfile().setIsStudyingAbroad(true);
+			roster.convertStringToStudent(userInput[1], getMajor(userInput[2])).getProfile().setIsStudyingAbroad(true);
+			if(roster.convertStringToStudent(userInput[1], getMajor(userInput[2])).getProfile().getCreditHours() > 12) {
+				roster.convertStringToStudent(userInput[1], getMajor(userInput[2])).getProfile().setCreditHours(12);
+			}
+			roster.convertStringToStudent(userInput[1], getMajor(userInput[2])).getProfile().setLastPayment("0");
+			roster.convertStringToStudent(userInput[1], getMajor(userInput[2])).getProfile().setLastPaymentDate("--/--/--");
 			return true;
 		}
-		System.out.println("")
+		System.out.println("Couldn't find the international student.");
 	}
 	
 
@@ -359,15 +375,15 @@ public class TuitionManager {
 	 * Checks if a string matches up with an enum Major.
 	 @param string 		compared with enum Majors
 	*/
-	public static boolean contains(String string)
-	{
-	    for (Major m : Major.values())
-	    {
-	        if (m.name().equals(string))
-	        {
-	            return true;
-	        }
-	    }
-	    return false;
-	}
+//	public static boolean contains(String string)
+//	{
+//	    for (Major m : Major.values())
+//	    {
+//	        if (m.name().equals(string))
+//	        {
+//	            return true;
+//	        }
+//	    }
+//	    return false;
+//	}
 }

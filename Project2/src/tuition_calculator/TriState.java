@@ -14,9 +14,9 @@ public class TriState extends NonResident{
 	/**
 	 * Loaded constructor of TriState class.
 	*/
-	public TriState(String name, Major major, int tuition, int credits, int lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad, String state) {
+	public TriState(String name, Major major, double tuition, int credits, int lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad, String state) {
 		super(name, major,tuition, credits,lastPayment, lastPaymentDue, isFullTime, isStudyingAbroad, state);
-
+		tuitionDue();
 	}
 	
 	/**

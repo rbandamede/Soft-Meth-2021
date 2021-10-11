@@ -6,7 +6,7 @@ package tuition_calculator;
  @author Aileen Wu, Rishika Bandamede
 */
 public class NonResident extends Student {
-	private String state;
+	//private String state;
 	protected static final int nonResidentFullTuition = 29737;
 	protected static final int nonResidentPartTuition = 966;
 	protected static final double universityPartFee = (0.8 * universityFee);
@@ -14,9 +14,11 @@ public class NonResident extends Student {
 
 
 	
-	public NonResident(String name, Major major, int tuition, int credits, int lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad, String state) {
+	public NonResident(String name, Major major, double tuition, int credits, double lastPayment, Date lastPaymentDue, boolean isFullTime, boolean isStudyingAbroad, String state) {
 		super(name, major, tuition, credits, lastPayment, lastPaymentDue, isFullTime, isStudyingAbroad);
-		this.state = state;
+//		this.state = state;
+		tuitionDue();
+
 	}
 	
 	/**
